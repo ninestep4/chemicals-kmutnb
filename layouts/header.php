@@ -36,20 +36,22 @@ $base = base_path();
                 <span class="sidebar__icon sidebar__icon--chemicals" aria-hidden="true"></span>
                 <span>สารเคมี</span>
             </a>
+            <div class="sidebar__section-label">ธุรกรรมยืม-คืนสาร</div>
+
             <a href="<?php echo htmlspecialchars(url('pages/withdrawals/')); ?>" class="sidebar__item <?php echo is_active('pages/withdrawals') ? 'sidebar__item--active' : ''; ?>">
                 <span class="sidebar__icon sidebar__icon--withdrawals" aria-hidden="true"></span>
-                <span>รายการเบิกจ่าย</span>
+                <span>รายการเบิกจ่าย(ยืม-คืนสาร)</span>
             </a>
-            <a href="<?php echo htmlspecialchars(url('pages/sds/')); ?>" class="sidebar__item <?php echo is_active('pages/sds') ? 'sidebar__item--active' : ''; ?>">
+            <!-- <a href="<?php echo htmlspecialchars(url('pages/sds/')); ?>" class="sidebar__item <?php echo is_active('pages/sds') ? 'sidebar__item--active' : ''; ?>">
                 <span class="sidebar__icon sidebar__icon--sds" aria-hidden="true"></span>
                 <span>SDS เอกสารความปลอดภัย</span>
             </a>
             <a href="<?php echo htmlspecialchars(url('pages/risk/')); ?>" class="sidebar__item <?php echo is_active('pages/risk') ? 'sidebar__item--active' : ''; ?>">
                 <span class="sidebar__icon sidebar__icon--risk" aria-hidden="true"></span>
                 <span>ประเมินความเสี่ยง</span>
-            </a>
+            </a> -->
 
-            <div class="sidebar__section-label">สถานะสารเคมี</div>
+            <!-- <div class="sidebar__section-label">สถานะสารเคมี</div>
             <a href="<?php echo htmlspecialchars(url('pages/chemicals/?status=normal')); ?>" class="sidebar__item">
                 <span class="sidebar__status-dot sidebar__status-dot--green" aria-hidden="true"></span>
                 <span>สารปกติ</span>
@@ -65,7 +67,7 @@ $base = base_path();
             <a href="<?php echo htmlspecialchars(url('pages/chemicals/?status=expired')); ?>" class="sidebar__item">
                 <span class="sidebar__status-dot sidebar__status-dot--red" aria-hidden="true"></span>
                 <span>หมดอายุจริง</span>
-            </a>
+            </a> -->
 
             <div class="sidebar__bottom">
                 <a href="<?php echo htmlspecialchars(url('pages/login/')); ?>" class="sidebar__item">

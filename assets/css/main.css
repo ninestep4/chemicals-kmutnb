@@ -465,6 +465,188 @@ body {
     margin: 0 0 20px;
 }
 
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, filter 0.2s;
+}
+.btn:hover { opacity: 0.9; }
+.btn--primary {
+    background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--white);
+}
+.btn--secondary {
+    background: var(--bg-page);
+    color: var(--text-main);
+    border: 1px solid var(--border-subtle);
+}
+.btn--accent {
+    background: #f97316;
+    color: var(--white);
+}
+
+/* Messages */
+.msg { padding: 10px 14px; border-radius: 10px; margin-bottom: 16px; font-size: 14px; }
+.msg--success { background: #dcfce7; color: #166534; }
+
+/* Chemicals table */
+.table-wrap { overflow-x: auto; }
+.chem-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.chem-table th,
+.chem-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+}
+.chem-table th {
+    background: var(--bg-page);
+    font-weight: 600;
+    color: var(--text-main);
+}
+.chem-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.chem-status--normal { background: #dcfce7; color: #166534; }
+.chem-status--unused { background: #e0e7ff; color: #3730a3; }
+.chem-status--expired_label { background: #ffedd5; color: #9a3412; }
+.chem-status--expired { background: #fee2e2; color: #991b1b; }
+
+/* Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal[hidden] { display: none !important; }
+.modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal__box {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow: auto;
+    background: var(--white);
+    border-radius: var(--card-radius);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+}
+.modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+.modal__title { margin: 0; font-size: 18px; font-weight: 600; }
+.modal__close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-muted);
+    border-radius: 8px;
+}
+.modal__close:hover { background: var(--bg-page); color: var(--text-main); }
+.modal__body { padding: 20px; }
+.modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 16px;
+}
+
+/* Form */
+.chem-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+.form-group--full { grid-column: 1 / -1; }
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+.form-group .required { color: var(--accent-red); }
+.form-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 14px;
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+textarea.form-input { resize: vertical; min-height: 60px; }
+
+/* Hazard chips */
+.hazard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.hazard-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-page);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.hazard-chip input {
+    width: 14px;
+    height: 14px;
+}
+
+.hazard-chip__label {
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .chem-form .form-row { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 1200px) {
     .dashboard-cards {
         grid-template-columns: repeat(3, minmax(0, 1fr));
