@@ -41,3 +41,8 @@
         }
     });
 })();
+
+let api_url = 'https://api.9centuryhost.shop/';
+$(document).ready(function () {
+    $("#topbar-name").text(sessionStorage.getItem("user"));
+});

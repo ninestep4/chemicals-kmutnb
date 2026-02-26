@@ -61,15 +61,16 @@ require_once __DIR__ . '/../../layouts/header.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($withdrawals as $i => $w): ?>
+                       
                             <tr>
-                                <td><?php echo (int) ($i + 1); ?></td>
-                                <td><?php echo htmlspecialchars($chemOptions[$w['chemical_id']] ?? ''); ?></td>
-                                <td><?php echo htmlspecialchars($w['borrow_date'] ?? ''); ?></td>
-                                <td><?php echo htmlspecialchars($w['return_date'] ?? '-'); ?></td>
-                                <td><?php echo htmlspecialchars($w['purpose'] ?? ''); ?></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                        <?php endforeach; ?>
+                      
                     </tbody>
                 </table>
             </div>
@@ -92,18 +93,10 @@ require_once __DIR__ . '/../../layouts/header.php';
                     <label for="wd-chemical_id">เลือกสาร <span class="required">*</span></label>
                     <select id="wd-chemical_id" name="chemical_id" class="form-input" required>
                         <option value="">-- เลือกสาร --</option>
-                        <?php foreach ($chemOptions as $id => $name): ?>
-                            <option value="<?php echo htmlspecialchars($id); ?>"><?php echo htmlspecialchars($name); ?></option>
-                        <?php endforeach; ?>
+                        
                     </select>
                 </div>
             </div>
-            <!-- <div class="form-row">
-                <div class="form-group form-group--full">
-                    <label for="wd-borrower_name">ชื่อผู้ยืม <span class="required">*</span></label>
-                    <input type="text" id="wd-borrower_name" name="borrower_name" class="form-input" required>
-                </div>
-            </div> -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="wd-borrow_date">วันที่ยืม <span class="required">*</span></label>

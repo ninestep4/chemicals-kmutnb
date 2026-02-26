@@ -13,18 +13,26 @@ $base = base_path();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo htmlspecialchars($pageTitle); ?> - ระบบจัดการสารเคมี</title>
     <link rel="stylesheet" href="<?php echo htmlspecialchars(asset('assets/css/main.css')); ?>">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax/0.0.1/jquery.ajax.min.js"></script> -->
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"></script>
 </head>
 <body>
 <div class="app">
     <div class="overlay" id="sidebarOverlay" aria-hidden="true"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar__brand">
-            <div class="sidebar__logo" aria-hidden="true"></div>
-            <div class="sidebar__title">
+        <img src="../../assets/img/logo.png" alt="User Avatar" class="topbar__user-avatar-img" style="width:228px; height:64px; border-radius:50%;">
+       
+            
+        </div>
+        <div class="sidebar__title">
                 <span>ระบบจัดการสารเคมี</span>
                 <small>ห้องปฏิบัติการ</small>
             </div>
-        </div>
 
         <nav class="sidebar__nav">
             <div class="sidebar__section-label">เมนูหลัก</div>
@@ -86,12 +94,14 @@ $base = base_path();
             </div>
 
             <div class="topbar__right">
-                <form class="topbar__search" action="<?php echo htmlspecialchars(url('pages/chemicals/')); ?>" method="get" role="search">
+                <!-- <form class="topbar__search" action="<?php echo htmlspecialchars(url('pages/chemicals/')); ?>" method="get" role="search">
                     <input type="search" name="q" placeholder="ค้นหาสาร..." aria-label="ค้นหาสารเคมี" />
-                </form>
+                </form> -->
                 <div class="topbar__user">
-                    <span class="topbar__user-avatar" aria-hidden="true">P</span>
-                    <span class="topbar__user-name">ผู้ดูแลระบบ</span>
+                    <span class="topbar__user-avatar" aria-hidden="true">
+                        <img src="../../assets/img/user-default.png" alt="User Avatar" class="topbar__user-avatar-img" style="width:32px; height:32px; border-radius:50%;">
+                    </span>
+                    <span class="topbar__user-name" id="topbar-name"></span>
                 </div>
                 <button type="button" class="topbar__menu-btn" id="btnToggleSidebar" aria-label="เปิด/ปิดเมนู" aria-expanded="false">
                     <span class="topbar__menu-btn-icon" aria-hidden="true"></span>

@@ -11,6 +11,10 @@ $pageTitle = $pageTitle ?? 'เข้าสู่ระบบ';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo htmlspecialchars($pageTitle); ?> - ระบบจัดการสารเคมี</title>
     <link rel="stylesheet" href="<?php echo htmlspecialchars(asset('assets/css/main.css')); ?>">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+    
 </head>
 <body class="auth-body">
 <div class="auth-shell">
