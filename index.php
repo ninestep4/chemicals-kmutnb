@@ -1,5 +1,5 @@
 <?php
 declare(strict_types=1);
 
-header('Location: pages/dashboard/');
+header('Location: pages/login');
 exit;

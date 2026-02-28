@@ -372,7 +372,7 @@ body {
 
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
     margin-bottom: 24px;
 }
@@ -525,7 +525,7 @@ body {
 .chem-status--normal { background: #dcfce7; color: #166534; }
 .chem-status--unused { background: #e0e7ff; color: #3730a3; }
 .chem-status--expired_label { background: #ffedd5; color: #9a3412; }
-.chem-status--expired { background: #fee2e2; color: #991b1b; }
+.chem-status--expired_condition { background: #fee2e2; color: #991b1b; }
 
 /* Modal */
 .modal {

@@ -5,7 +5,7 @@ $(document).ready(function () {
 function login() {
     var username = $("#login-username").val();
     var password = $("#login-password").val();
-    console.log(username, password);
+    // console.log(username, password);
     $.ajax({
         type: "POST",
         url: api_url + "api/login",
@@ -14,6 +14,7 @@ function login() {
         success: function (response) {
             if (response.success == true) {
                 sessionStorage.setItem("user", response.name);
+                sessionStorage.setItem("user_id", response.user_id);
                 // ดึง access_token เฉพาะค่าหลัง | 
                 if (response.access_token) {
                     const tokenParts = response.access_token.split('|');
