@@ -24,7 +24,7 @@ require_once __DIR__ . '/../../layouts/header.php';
                         <tr>
                             <th>ลำดับ</th>
                             <th>ชื่อสาร</th>
-                            <th>ปริมาณ</th>
+                            <th>ปริมาณคงเหลือ</th>
                             <th>CAS No.</th>
                             <th>ที่จัดเก็บ</th>
                             <th>สถานะ</th>
@@ -73,15 +73,23 @@ require_once __DIR__ . '/../../layouts/header.php';
         <div id="formAddChemical" class="modal__body chem-form">
             <input type="hidden" name="action" value="add">
             <div class="form-row">
-                <div class="form-group">
+                <div class="form-group form-group--full">
                     <label for="chem-name">ชื่อสาร <span class="required">*</span></label>
                     <input type="text" id="chem-name_th" name="name" required class="form-input" placeholder="เช่น กรดไฮโดรคลอริก">
                 </div>
-                <div class="form-group">
+                
+            </div>
+            <div class="form-row">
+            <div class="form-group">
                     <label for="chem-amount">ปริมาณ <span class="required">*</span></label>
-                    <input type="text" id="chem-volume" name="amount" required class="form-input" placeholder="เช่น 500 mL">
+                    <input type="text" id="chem-volume" name="amount" required class="form-input" placeholder="เช่น 500">
+                </div>
+                <div class="form-group">
+                    <label for="chem-unit">หน่วย</label>
+                    <input type="text" id="chem-unit" name="unit" class="form-input" placeholder="เช่น mL">
                 </div>
             </div>
+            
             <div class="form-row">
                 <div class="form-group">
                     <label for="chem-cas_no">CAS No.</label>
@@ -163,13 +171,21 @@ require_once __DIR__ . '/../../layouts/header.php';
             <input type="hidden" name="action" value="edit">
             <input type="hidden" id="ed-chem-id" name="id" value="">
             <div class="form-row">
-                <div class="form-group">
+                <div class="form-group form-group--full">
                     <label for="chem-name">ชื่อสาร <span class="required">*</span></label>
                     <input type="text" id="ed-chem-name_th" name="name" required class="form-input" placeholder="เช่น กรดไฮโดรคลอริก">
                 </div>
-                <div class="form-group">
+                
+            </div>
+            <div class="form-row">
+                <input type="hidden" id="ed-chem-volume" name="volume" value="">
+            <div class="form-group">
                     <label for="chem-amount">ปริมาณ <span class="required">*</span></label>
-                    <input type="text" id="ed-chem-volume" name="amount" required class="form-input" placeholder="เช่น 500 mL">
+                    <input type="text" id="ed-chem-original_amount" name="original_amount" required class="form-input" placeholder="เช่น 500 mL">
+                </div>
+                <div class="form-group">
+                    <label for="chem-unit">หน่วย</label>
+                    <input type="text" id="ed-chem-unit" name="unit" class="form-input" placeholder="เช่น mL">
                 </div>
             </div>
             <div class="form-row">

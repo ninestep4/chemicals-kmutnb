@@ -1,3 +1,42 @@
+var withdrawalChemicalsCache = [];
+
+function updateSelectedChemicalStockInfo() {
+    var $selectedOption = $('#wd-chemical_id option:selected');
+    var selectedId = $('#wd-chemical_id').val();
+    var $stockInfo = $('#wd-chemical-stock-info');
+
+    if (!$stockInfo.length) {
+        return;
+    }
+
+    if (!selectedId) {
+        $stockInfo.text('คงเหลือ: -');
+        return;
+    }
+
+    var amount = $selectedOption.data('amount');
+    var unit = $selectedOption.data('unit');
+
+    if (amount === undefined || amount === null || amount === '') {
+        var selectedChemical = withdrawalChemicalsCache.find(function (chemical) {
+            return String(chemical.id) === String(selectedId);
+        });
+        if (selectedChemical) {
+            amount = selectedChemical.amount;
+            unit = selectedChemical.unit;
+        }
+    }
+
+    if (amount === undefined || amount === null || amount === '') {
+        amount = '-';
+    }
+    if (unit === undefined || unit === null) {
+        unit = '';
+    }
+
+    $stockInfo.text('คงเหลือ: ' + amount + (unit ? ' ' + unit : ''));
+}
+
 $(document).ready(function () {
     if(sessionStorage.getItem("access_token") == null || sessionStorage.getItem("access_token") == undefined || sessionStorage.getItem("access_token") == '') {
         window.location.href = '../../pages/login/index.php';
@@ -34,6 +73,7 @@ $(document).ready(function () {
     if (btnEditClose) btnEditClose.addEventListener('click', closeEditModal);
     if (btnEditCancel) btnEditCancel.addEventListener('click', closeEditModal);
     if (backdropEdit) backdropEdit.addEventListener('click', closeEditModal);
+    $('#wd-chemical_id').on('change', updateSelectedChemicalStockInfo);
 
     $(document).on('click', '.btnEditWithdrawal', function () {
         var id = $(this).data('id');
@@ -96,13 +136,33 @@ function getchemicals(selectedEditChemicalId){
         },
         dataType: 'json',
         success: function(response) {
-            var data = response;
+            var data = Array.isArray(response)
+                ? response
+                : (Array.isArray(response.data)
+                    ? response.data
+                    : (response.data && Array.isArray(response.data.data) ? response.data.data : []));
+
+            function normalizeChemical(item) {
+                var chemical = item && item.chemical ? item.chemical : item;
+                return {
+                    id: chemical && chemical.id !== undefined ? chemical.id : '',
+                    name: chemical && chemical.name ? chemical.name : '-',
+                    amount: chemical && chemical.amount !== undefined && chemical.amount !== null ? chemical.amount : (chemical && chemical.original_amount !== undefined ? chemical.original_amount : ''),
+                    unit: chemical && chemical.unit ? chemical.unit : ''
+                };
+            }
+
+            withdrawalChemicalsCache = $.map(data, function(item) {
+                return normalizeChemical(item);
+            });
             var html = '<option value="">-- เลือกสาร --</option>';
             $.each(data, function(index, item) {
-                html += '<option value="' + item.id + '">' + item.name + '</option>';
+                var chemical = normalizeChemical(item);
+                html += '<option value="' + chemical.id + '" data-amount="' + chemical.amount + '" data-unit="' + chemical.unit + '">' + chemical.name + '</option>';
             });
             $('#wd-chemical_id').html(html);
             $('#ed-chemical_id').html(html);
+            updateSelectedChemicalStockInfo();
             if (selectedEditChemicalId !== undefined && selectedEditChemicalId !== null) {
                 $('#ed-chemical_id').val(String(selectedEditChemicalId));
             }
@@ -148,6 +208,7 @@ function saveWithdrawal(){
             chemical_id: $('#wd-chemical_id').val(),
             borrow_date: $('#wd-borrow_date').val(),
             return_date: $('#wd-return_date').val(),
+            borrow_amount: $('#wd-borrow_amount').val(),
             purpose: $('#wd-purpose').val(),
         };
     $.ajax({
@@ -173,8 +234,20 @@ function saveWithdrawal(){
                 getWithdrawals();
             }
         },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
+        error: function (xhr, status, error) {
+            // console.log(response.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'การบันทึกข้อมูลล้มเหลว',
+                text: (() => {
+                    try {
+                        const res = JSON.parse(xhr.responseText);
+                        return res.message || xhr.responseText;
+                    } catch (e) {
+                        return xhr.responseText;
+                    }
+                })()
+            });
         }
     })
 
@@ -207,7 +280,19 @@ function editWithdrawal(){
             }
         },
         error: function(xhr, status, error) {
-            console.log(xhr.responseText);
+            // console.log(response.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'การแก้ไขข้อมูลล้มเหลว',
+                text: (() => {
+                    try {
+                        const res = JSON.parse(xhr.responseText);
+                        return res.message || xhr.responseText;
+                    } catch (e) {
+                        return xhr.responseText;
+                    }
+                })()
+            });
         }
     });
 }

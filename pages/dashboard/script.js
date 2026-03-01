@@ -61,7 +61,7 @@ function getdata() {
                 html += `<tr>
                     <td>${index + 1}</td>
                     <td>${item.name}</td>
-                    <td>${item.volume}</td>
+                    <td>${item.original_amount} ${item.unit}</td>
                     <td>${item.cas_no}</td>
                     <td>${item.location}</td>
                     <td><span class="chem-status ${statusClass}">${statusLabel}</span></td>

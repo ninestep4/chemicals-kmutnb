@@ -75,10 +75,12 @@ $(document).ready(function () {
         var formData = {
             name: $("#chem-name_th").val(),
             amount: $("#chem-volume").val(),
+            original_amount: $("#chem-original_amount").val(),
+            unit: $("#chem-unit").val(),
             cas_no: $("#chem-cas_no").val(),
             location: $("#chem-location").val(),
             status: $("#chem-status").val(),
-            expiry_date: $("#expired_at").val(),
+            expiry_at: $("#expired_at").val(),
             hazards: $("#hazardGrid").find('input[type="checkbox"]:checked').map(function() {
                 return $(this).val();
             }).get(),
@@ -95,10 +97,12 @@ $(document).ready(function () {
             data: JSON.stringify({
                 name: formData.name,
                 amount: formData.amount,
+                original_amount: formData.original_amount,
+                unit: formData.unit,
                 cas_no: formData.cas_no,
                 location: formData.location,
                 status: formData.status,
-                expired_at: formData.expiry_date,
+                expired_at: formData.expiry_at,
                 hazard: formData.hazards,
                 sds_url: formData.sds_url,
             }),
@@ -152,6 +156,8 @@ $(document).ready(function () {
 
         $("#ed-chem-name_th").val(item.name || '');
         $("#ed-chem-volume").val(item.amount || '');
+        $("#ed-chem-original_amount").val(item.original_amount || '');
+        $("#ed-chem-unit").val(item.unit || '');
         $("#ed-chem-cas_no").val(item.cas_no || '');
         $("#ed-chem-location").val(item.location || '');
         $("#ed-chem-status").val(item.status || 'normal');
@@ -182,10 +188,12 @@ $(document).ready(function () {
         var formData = {
             name: $("#ed-chem-name_th").val(),
             amount: $("#ed-chem-volume").val(),
+            original_amount: $("#ed-chem-original_amount").val(),
+            unit: $("#ed-chem-unit").val(),
             cas_no: $("#ed-chem-cas_no").val(),
             location: $("#ed-chem-location").val(),
             status: $("#ed-chem-status").val(),
-            expiry_date: $("#ed-expired_at").val(),
+            expiry_at: $("#ed-expired_at").val(),
             hazard: $("#hazardGridEdit").find('input[type="checkbox"]:checked').map(function() {
                 return $(this).val();
             }).get(),
@@ -273,10 +281,10 @@ function getdata(){
                         $list.append(`
                             <tr>
                                 <td>${idx + 1}</td>
-                                <td>${item.name ? $('<div>').text(item.name).html() : ''}</td>
-                                <td>${item.amount ? $('<div>').text(item.amount).html() : ''}</td>
-                                <td>${item.cas_no ? $('<div>').text(item.cas_no).html() : ''}</td>
-                                <td>${item.location ? $('<div>').text(item.location).html() : ''}</td>
+                                <td>${item.name}</td>
+                                <td>${item.amount + ' / ' + item.original_amount + ' ' + item.unit}</td>
+                                <td>${item.cas_no}</td>
+                                <td>${item.location}</td>
                                 <td>
                                     <span class="chem-status ${statusClass}">
                                         ${(() => {
