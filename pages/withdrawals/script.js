@@ -77,6 +77,14 @@ $(document).ready(function () {
 
     $(document).on('click', '.btnEditWithdrawal', function () {
         var id = $(this).data('id');
+        if (id === undefined || id === null || id === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'ไม่พบรหัสรายการ',
+                text: 'ไม่สามารถเปิดข้อมูลเพื่อคืนสารได้'
+            });
+            return;
+        }
         openEditWithdrawal(id);
     });
 
@@ -171,20 +179,36 @@ function getchemicals(selectedEditChemicalId) {
 }
 
 function openEditWithdrawal(id) {
+    var selectedId = String(id || '').trim();
+    if (!selectedId) {
+        Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบรหัสรายการ',
+            text: 'ไม่สามารถโหลดข้อมูลสำหรับแก้ไขได้'
+        });
+        return;
+    }
+
+    $('#ed-withdrawal-id').val(selectedId);
+
     $.ajax({
-        url: api_url + 'api/chemicals-borrows/' + id,
+        url: api_url + 'api/chemicals-borrows/' + selectedId,
         type: 'GET',
         headers: {
             'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
         },
         dataType: 'json',
         success: function (response) {
-            var item = response.data || {};
+            var item = response && response.data
+                ? (response.data.data ? response.data.data : response.data)
+                : {};
             var modalEdit = document.getElementById('modalEditWithdrawal');
             if (!modalEdit) return;
 
+            var resolvedId = item.id || item.borrow_id || item.chemical_borrow_id || selectedId;
+
             getchemicals(item.chemical_id || '');
-            $('#ed-withdrawal-id').val(item.id || '');
+            $('#ed-withdrawal-id').val(resolvedId);
             $('#ed-borrow_date').val(item.borrow_date || '');
             $('#ed-return_date').val(item.return_date || '');
             $('#ed-purpose').val(item.purpose || '');
@@ -253,7 +277,16 @@ function saveWithdrawal() {
 }
 
 function editWithdrawal() {
-    var id = $('#ed-withdrawal-id').val();
+    var id = String($('#ed-withdrawal-id').val() || '').trim();
+    if (!id) {
+        Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบรหัสรายการ',
+            text: 'กรุณาเลือกข้อมูลที่ต้องการคืนสารใหม่อีกครั้ง'
+        });
+        return;
+    }
+
     var amount = $('#retrun_amount').val();
     var formData = {
         status: "normal",
