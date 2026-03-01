@@ -25,7 +25,7 @@ require_once __DIR__ . '/../../layouts/header.php';
                     <tr>
                         <th>ลำดับ</th>
                         <th>ชื่อสาร</th>
-                        <th></th>ปริมาณที่ยืม</th>
+                        <th>ปริมาณที่ยืม</th>
                         <th>ชื่อผู้ยืม</th>
                         <th>วันที่ยืม</th>
                         <th>วันที่คืน</th>
