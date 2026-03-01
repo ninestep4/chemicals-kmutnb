@@ -80,7 +80,7 @@ $base = base_path();
             <div class="sidebar__bottom">
                 <a href="<?php echo htmlspecialchars(url('pages/login/')); ?>" class="sidebar__item">
                     <span class="sidebar__icon sidebar__icon--settings" aria-hidden="true"></span>
-                    <span>ตั้งค่า / ออกจากระบบ</span>
+                    <span>ออกจากระบบ</span>
                 </a>
             </div>
         </nav>
@@ -97,7 +97,14 @@ $base = base_path();
                 <!-- <form class="topbar__search" action="<?php echo htmlspecialchars(url('pages/chemicals/')); ?>" method="get" role="search">
                     <input type="search" name="q" placeholder="ค้นหาสาร..." aria-label="ค้นหาสารเคมี" />
                 </form> -->
-                <div class="topbar__user">
+                <div
+                    class="topbar__user"
+                    id="topbarUser"
+                    role="button"
+                    tabindex="0"
+                    data-profile-url="<?php echo htmlspecialchars(url('pages/profile/')); ?>"
+                    aria-label="ไปหน้าแก้ไขผู้ใช้งาน"
+                >
                     <span class="topbar__user-avatar" aria-hidden="true">
                         <img src="../../assets/img/user-default.png" alt="User Avatar" class="topbar__user-avatar-img" style="width:32px; height:32px; border-radius:50%;">
                     </span>

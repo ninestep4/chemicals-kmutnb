@@ -117,12 +117,17 @@ function getWithdrawals() {
                         <td>${index + 1}</td>
                         <td>${item.chemical.name}</td>
                         <td>${item.user.name || '-'}</td>
+                        <td>${item.user.phone || '-'}</td>
                         <td>${item.borrow_amount !== undefined && item.borrow_amount !== null ? item.borrow_amount : '-'}</td>
                         <td>${item.borrow_date || '-'}</td>
                         <td>${item.return_date || '-'}</td>
                         <td>${item.purpose ? $('<div>').text(item.purpose).html() : '-'}</td>
+                        <td>${item.status === "normal" ? 'คืนสารแล้ว' : 'ยืมสารอยู่'}</td>
+
                         <td>
-                            <button type="button" class="btn btn--secondary btnEditWithdrawal" data-id="${item.id}">คืนสาร</button>
+                            ${(item.chemical.amount != item.chemical.original_amount)
+                                ? `<button type="button" class="btn btn--secondary btnEditWithdrawal" data-id="${item.id}">คืนสาร</button>`
+                                : ''}
                             <button type="button" class="btn btn--danger" onclick="deleteWithdrawal(${item.id})">ลบ</button>
                         </td>
                     </tr>

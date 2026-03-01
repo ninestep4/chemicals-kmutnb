@@ -4,6 +4,7 @@
     var sidebar = document.getElementById('sidebar');
     var btnToggle = document.getElementById('btnToggleSidebar');
     var overlay = document.getElementById('sidebarOverlay');
+    var topbarUser = document.getElementById('topbarUser');
 
     function openSidebar() {
         if (sidebar) sidebar.classList.add('is-open');
@@ -40,6 +41,23 @@
             closeSidebar();
         }
     });
+
+    if (topbarUser) {
+        var goToProfile = function () {
+            var profileUrl = topbarUser.getAttribute('data-profile-url');
+            if (profileUrl) {
+                window.location.href = profileUrl;
+            }
+        };
+
+        topbarUser.addEventListener('click', goToProfile);
+        topbarUser.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                goToProfile();
+            }
+        });
+    }
 })();
 
 let api_url = 'https://api.9centuryhost.shop/';

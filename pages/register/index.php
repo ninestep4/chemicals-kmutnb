@@ -22,7 +22,7 @@ require_once __DIR__ . '/../../layouts/auth-header.php';
             </div>
 
             <div class="auth-form__field">
-                <label for="register-email">อีเมล (@kmutnb.ac.th เท่านั้น)</label>
+                <label for="register-email">อีเมล (@email.kmutnb.ac.th เท่านั้น)</label>
                 <input 
                     type="email" 
                     id="register-email" 
@@ -31,14 +31,14 @@ require_once __DIR__ . '/../../layouts/auth-header.php';
                     autocomplete="email"
                     required
                     oninput="
-                        if (this.validity.typeMismatch || !/^[a-zA-Z0-9._%+-]+@kmutnb\.ac\.th$/.test(this.value)) {
-                            this.setCustomValidity('กรุณากรอกอีเมล @kmutnb.ac.th เท่านั้น');
+                        if (this.validity.typeMismatch || !/^[a-zA-Z0-9._%+-]+@email\.kmutnb\.ac\.th$/.test(this.value)) {
+                            this.setCustomValidity('กรุณากรอกอีเมล @email.kmutnb.ac.th เท่านั้น');
                         } else {
                             this.setCustomValidity('');
                         }
                     "
-                    pattern="^[a-zA-Z0-9._%+-]+@kmutnb\.ac\.th$"
-                    title="กรุณากรอกอีเมล @kmutnb.ac.th เท่านั้น"
+                    pattern="^[a-zA-Z0-9._%+-]+@email\.kmutnb\.ac\.th$"
+                    title="กรุณากรอกอีเมล @email.kmutnb.ac.th เท่านั้น"
                     required    
                 >
             </div>

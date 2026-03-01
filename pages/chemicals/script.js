@@ -74,7 +74,7 @@ $(document).ready(function () {
         e.preventDefault();
         var formData = {
             name: $("#chem-name_th").val(),
-            amount: $("#chem-volume").val(),
+            amount: $("#chem-original_amount").val(),
             original_amount: $("#chem-original_amount").val(),
             unit: $("#chem-unit").val(),
             cas_no: $("#chem-cas_no").val(),

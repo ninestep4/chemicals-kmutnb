@@ -42,18 +42,20 @@ function getdata() {
                 let hazardHtml = hazardArr.map(h => `<span class="hazard-chip hazard-chip--table">${hazardLabels[h] || h}</span>`).join(' ');
                 // status class
                 let statusClass = '';
-                switch (item.status) {
+                switch (item.borrow_status) {
                     case 'normal': statusClass = 'chem-status--normal'; break;
                     case 'unused': statusClass = 'chem-status--unused'; break;
+                    case 'pending': statusClass = 'chem-status--pending'; break;
                     case 'expired_label': statusClass = 'chem-status--expired_label'; break;
                     case 'expired_condition': statusClass = 'chem-status--expired_condition'; break;
                     default: statusClass = '';
                 }
                 // map status label
                 let statusLabel = '';
-                switch (item.status) {
+                switch (item.borrow_status) {
                     case 'normal': statusLabel = 'ปกติ'; break;
                     case 'unused': statusLabel = 'ไม่เหลือการใช้'; break;
+                    case 'pending': statusLabel = 'กำลังยืม'; break;
                     case 'expired_label': statusLabel = 'หมดอายุตามฉลาก'; break;
                     case 'expired_condition': statusLabel = 'หมดอายุตามสภาพ'; break;
                     default: statusLabel = '';

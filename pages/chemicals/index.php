@@ -80,9 +80,10 @@ require_once __DIR__ . '/../../layouts/header.php';
                 
             </div>
             <div class="form-row">
+                <input type="hidden" id="chem-volume" name="volume" value="">
             <div class="form-group">
                     <label for="chem-amount">ปริมาณ <span class="required">*</span></label>
-                    <input type="text" id="chem-volume" name="amount" required class="form-input" placeholder="เช่น 500">
+                    <input type="text" id="chem-original_amount" name="amount" required class="form-input" placeholder="เช่น 500">
                 </div>
                 <div class="form-group">
                     <label for="chem-unit">หน่วย</label>
