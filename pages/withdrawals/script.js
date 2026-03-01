@@ -38,7 +38,7 @@ function updateSelectedChemicalStockInfo() {
 }
 
 $(document).ready(function () {
-    if(sessionStorage.getItem("access_token") == null || sessionStorage.getItem("access_token") == undefined || sessionStorage.getItem("access_token") == '') {
+    if (sessionStorage.getItem("access_token") == null || sessionStorage.getItem("access_token") == undefined || sessionStorage.getItem("access_token") == '') {
         window.location.href = '../../pages/login/index.php';
     }
     var modal = document.getElementById('modalAddWithdrawal');
@@ -80,19 +80,19 @@ $(document).ready(function () {
         openEditWithdrawal(id);
     });
 
-    $('#btnSubmitAddWithdrawal').click(function (e) { 
+    $('#btnSubmitAddWithdrawal').click(function (e) {
         e.preventDefault();
         saveWithdrawal();
     });
 
-    $('#btnSubmitEditWithdrawal').click(function (e) { 
+    $('#btnSubmitEditWithdrawal').click(function (e) {
         e.preventDefault();
         editWithdrawal();
     });
     getWithdrawals();
 });
 
-function getWithdrawals(){
+function getWithdrawals() {
     $.ajax({
         url: api_url + 'api/chemicals-borrows',
         type: 'GET',
@@ -100,34 +100,34 @@ function getWithdrawals(){
             'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
         },
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             var data = response.data;
             var html = '';
-            $.each(data, function(index, item) {
+            $.each(data, function (index, item) {
                 html += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td>${item.chemical_borrow.chemical.name}</td>
-                        <td>${item.chemical_borrow.user.name || '-'}</td>
-                        <td>${item.chemical_borrow.borrow_date || '-'}</td>
-                        <td>${item.chemical_borrow.return_date || '-'}</td>
-                        <td>${item.chemical_borrow.purpose ? $('<div>').text(item.chemical_borrow.purpose).html() : '-'}</td>
+                        <td>${item.chemical.name}</td>
+                        <td>${item.user.name || '-'}</td>
+                        <td>${item.borrow_date || '-'}</td>
+                        <td>${item.return_date || '-'}</td>
+                        <td>${item.purpose ? $('<div>').text(item.purpose).html() : '-'}</td>
                         <td>
-                            <button type="button" class="btn btn--secondary btnEditWithdrawal" data-id="${item.chemical_borrow.id}">คืนสาร</button>
-                            <button type="button" class="btn btn--danger" onclick="deleteWithdrawal(${item.chemical_borrow.id})">ลบ</button>
+                            <button type="button" class="btn btn--secondary btnEditWithdrawal" data-id="${item.id}">คืนสาร</button>
+                            <button type="button" class="btn btn--danger" onclick="deleteWithdrawal(${item.id})">ลบ</button>
                         </td>
                     </tr>
                 `;
             });
             $('#listdata').html(html);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log(xhr.responseText);
         }
     });
 }
 
-function getchemicals(selectedEditChemicalId){
+function getchemicals(selectedEditChemicalId) {
     $.ajax({
         url: api_url + 'api/chemicals',
         type: 'GET',
@@ -135,7 +135,7 @@ function getchemicals(selectedEditChemicalId){
             'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
         },
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             var data = Array.isArray(response)
                 ? response
                 : (Array.isArray(response.data)
@@ -152,11 +152,11 @@ function getchemicals(selectedEditChemicalId){
                 };
             }
 
-            withdrawalChemicalsCache = $.map(data, function(item) {
+            withdrawalChemicalsCache = $.map(data, function (item) {
                 return normalizeChemical(item);
             });
             var html = '<option value="">-- เลือกสาร --</option>';
-            $.each(data, function(index, item) {
+            $.each(data, function (index, item) {
                 var chemical = normalizeChemical(item);
                 html += '<option value="' + chemical.id + '" data-amount="' + chemical.amount + '" data-unit="' + chemical.unit + '">' + chemical.name + '</option>';
             });
@@ -180,15 +180,14 @@ function openEditWithdrawal(id) {
         dataType: 'json',
         success: function (response) {
             var item = response.data || {};
-            var chemicalBorrow = item.chemical_borrow || item;
             var modalEdit = document.getElementById('modalEditWithdrawal');
             if (!modalEdit) return;
 
-            getchemicals(chemicalBorrow.chemical_id || '');
-            $('#ed-withdrawal-id').val(chemicalBorrow.id || '');
-            $('#ed-borrow_date').val(chemicalBorrow.borrow_date || '');
-            $('#ed-return_date').val(chemicalBorrow.return_date || '');
-            $('#ed-purpose').val(chemicalBorrow.purpose || '');
+            getchemicals(item.chemical_id || '');
+            $('#ed-withdrawal-id').val(item.id || '');
+            $('#ed-borrow_date').val(item.borrow_date || '');
+            $('#ed-return_date').val(item.return_date || '');
+            $('#ed-purpose').val(item.purpose || '');
 
             modalEdit.removeAttribute('hidden');
         },
@@ -202,15 +201,15 @@ function openEditWithdrawal(id) {
     });
 }
 
-function saveWithdrawal(){
-        var formData = {
-            borrower_id: sessionStorage.getItem('user_id'),
-            chemical_id: $('#wd-chemical_id').val(),
-            borrow_date: $('#wd-borrow_date').val(),
-            return_date: $('#wd-return_date').val(),
-            borrow_amount: $('#wd-borrow_amount').val(),
-            purpose: $('#wd-purpose').val(),
-        };
+function saveWithdrawal() {
+    var formData = {
+        borrower_id: sessionStorage.getItem('user_id'),
+        chemical_id: $('#wd-chemical_id').val(),
+        borrow_date: $('#wd-borrow_date').val(),
+        return_date: $('#wd-return_date').val(),
+        borrow_amount: $('#wd-borrow_amount').val(),
+        purpose: $('#wd-purpose').val(),
+    };
     $.ajax({
         url: api_url + 'api/chemicals-borrows',
         type: 'POST',
@@ -221,9 +220,9 @@ function saveWithdrawal(){
         contentType: 'application/json; charset=utf-8',
         processData: false,
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             console.log(response);
-            if(response.data.message == 'success') {
+            if (response.data.message == 'success') {
                 Swal.fire({
                     icon: 'success',
                     title: 'บันทึกข้อมูลเรียบร้อย!',
@@ -253,10 +252,12 @@ function saveWithdrawal(){
 
 }
 
-function editWithdrawal(){
+function editWithdrawal() {
     var id = $('#ed-withdrawal-id').val();
+    var amount = $('#retrun_amount').val();
     var formData = {
-        status: "returned"
+        status: "normal",
+        return_amount: amount ? parseFloat(amount) : 0,
     };
     $.ajax({
         url: api_url + 'api/chemicals-borrows/' + id,
@@ -268,9 +269,9 @@ function editWithdrawal(){
         contentType: 'application/json; charset=utf-8',
         processData: false,
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             console.log(response);
-            if(response.data.message == 'success') {
+            if (response.data.message == 'success') {
                 Swal.fire({
                     icon: 'success',
                     title: 'แก้ไขข้อมูลเรียบร้อย!',
@@ -279,7 +280,7 @@ function editWithdrawal(){
                 getWithdrawals();
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             // console.log(response.responseText);
             Swal.fire({
                 icon: 'error',
