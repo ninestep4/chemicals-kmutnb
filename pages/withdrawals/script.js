@@ -117,6 +117,7 @@ function getWithdrawals() {
                         <td>${index + 1}</td>
                         <td>${item.chemical.name}</td>
                         <td>${item.user.name || '-'}</td>
+                        <td>${item.borrow_amount !== undefined && item.borrow_amount !== null ? item.borrow_amount : '-'}</td>
                         <td>${item.borrow_date || '-'}</td>
                         <td>${item.return_date || '-'}</td>
                         <td>${item.purpose ? $('<div>').text(item.purpose).html() : '-'}</td>
