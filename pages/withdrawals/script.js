@@ -109,34 +109,56 @@ function getWithdrawals() {
         },
         dataType: 'json',
         success: function (response) {
-            var data = response.data;
+            console.log('Response:', response); // Debug
+            var data = response.data || response;
+            if (!Array.isArray(data)) {
+                console.error('Data is not an array:', data);
+                $('#listdata').html('<tr><td colspan="10">ไม่พบข้อมูล</td></tr>');
+                return;
+            }
+
             var html = '';
             $.each(data, function (index, item) {
+                console.log('Item:', item); // Debug
+
+                // ป้องกัน error กรณีไม่มี nested object
+                var chemicalName = item.chemical && item.chemical.name ? item.chemical.name : (item.chemical_name || '-');
+                var userName = item.user && item.user.name ? item.user.name : (item.borrower_name || '-');
+                var userPhone = item.user && item.user.phone ? item.user.phone : (item.borrower_phone || '-');
+                var chemicalAmount = item.chemical && item.chemical.amount !== undefined ? item.chemical.amount : null;
+                var chemicalOriginalAmount = item.chemical && item.chemical.original_amount !== undefined ? item.chemical.original_amount : null;
+
                 html += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td>${item.chemical.name}</td>
-                        <td>${item.user.name || '-'}</td>
-                        <td>${item.user.phone || '-'}</td>
+                        <td>${chemicalName}</td>
+                        <td>${userName}</td>
+                        <td>${userPhone}</td>
                         <td>${item.borrow_amount !== undefined && item.borrow_amount !== null ? item.borrow_amount : '-'}</td>
                         <td>${item.borrow_date || '-'}</td>
                         <td>${item.return_date || '-'}</td>
                         <td>${item.purpose ? $('<div>').text(item.purpose).html() : '-'}</td>
-                        <td>${item.status === "normal" ? 'คืนสารแล้ว' : 'ยืมสารอยู่'}</td>
+                        <td>${item.status === "normal" || item.status === "returned" ? 'คืนสารแล้ว' : 'ยืมสารอยู่'}</td>
 
                         <td>
-                            ${(item.chemical.amount != item.chemical.original_amount)
-                                ? `<button type="button" class="btn btn--secondary btnEditWithdrawal" data-id="${item.id}">คืนสาร</button>`
-                                : ''}
+                            ${(item.status !== "normal" && item.status !== "returned")
+                        ? `<button type="button" class="btn btn--secondary btnEditWithdrawal" data-id="${item.id}">คืนสาร</button>`
+                        : ''}
                             <button type="button" class="btn btn--danger" onclick="deleteWithdrawal(${item.id})">ลบ</button>
                         </td>
                     </tr>
                 `;
             });
-            $('#listdata').html(html);
+
+            if (html === '') {
+                $('#listdata').html('<tr><td colspan="10">ไม่มีข้อมูลการยืมสาร</td></tr>');
+            } else {
+                $('#listdata').html(html);
+            }
         },
         error: function (xhr, status, error) {
-            console.log(xhr.responseText);
+            console.error('Error:', xhr.responseText);
+            $('#listdata').html('<tr><td colspan="10">เกิดข้อผิดพลาดในการโหลดข้อมูล</td></tr>');
         }
     });
 }
