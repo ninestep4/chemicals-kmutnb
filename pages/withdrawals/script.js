@@ -293,7 +293,7 @@ function editWithdrawal() {
         return;
     }
 
-    var amount = $('#retrun_amount').val();
+    var amount = $('#return_amount').val();
     var formData = {
         status: "normal",
         return_amount: amount ? parseFloat(amount) : 0,

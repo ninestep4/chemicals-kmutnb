@@ -112,9 +112,9 @@ require_once __DIR__ . '/../../layouts/header.php';
                 </div>
             </div> -->
             <div class="form-group form-group--full">
-                    <label for="retrun_amount">ปริมาณสารที่จะคืน <span class="required">*</span></label>
+                    <label for="return_amount">ปริมาณสารที่จะคืน <span class="required">*</span></label>
                     <div id="wd-chemical-stock-info" style="margin-bottom: 6px; color: #64748b; font-size: 0.9rem;">หน่วย: </div>
-                    <input type="number" id="retrun_amount" name="retrun_amount" class="form-input" required value="0">
+                    <input type="number" id="return_amount" name="return_amount" class="form-input" required value="0">
 
             </div>
             <!-- <div class="form-row">
