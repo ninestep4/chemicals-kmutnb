@@ -28,6 +28,7 @@ require_once __DIR__ . '/../../layouts/header.php';
                             <th>CAS No.</th>
                             <th>ที่จัดเก็บ</th>
                             <th>สถานะ</th>
+                            <th>วันที่เพิ่มสาร</th>
                             <th>วันหมดอายุ</th>
                             <th>ความอันตราย</th>
                             <th>SDS</th>
@@ -37,7 +38,7 @@ require_once __DIR__ . '/../../layouts/header.php';
                     <tbody id="listdata">
                         
                     <tr>
-                        <td colspan="10" class="text-muted text-center">กำลังโหลด...</td>
+                        <td colspan="11" class="text-muted text-center">กำลังโหลด...</td>
                     </tr>
                            
                         

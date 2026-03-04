@@ -302,6 +302,7 @@ function getdata(){
                                         })()}
                                     </span>
                                 </td>
+                                <td>${item.added_date}</td>
                                 <td>${expiredAt}</td>
                                 <td>${hazardHtml}</td>
                                 <td><i class="fa fa-info-circle" aria-hidden="true"></i> <a href="${item.sds_url}" target="_blank">SDS</a></td>
