@@ -47,7 +47,7 @@ require_once __DIR__ . '/../../layouts/header.php';
             <div class="form-row">
                 <div class="form-group">
                     <label for="pf-password">รหัสผ่านใหม่</label>
-                    <input type="password" id="pf-password" class="form-input" placeholder="เว้นว่างหากไม่เปลี่ยน">
+                    <input type="password" id="pf-password" class="form-input" placeholder="เว้นว่างหากไม่เปลี่ยน" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="pf-password-confirm">ยืนยันรหัสผ่านใหม่</label>
@@ -56,7 +56,8 @@ require_once __DIR__ . '/../../layouts/header.php';
             </div>
 
             <div class="modal__footer">
-                <button type="button" class="btn btn--secondary" id="btnCancelProfile">รีเซ็ต</button>
+                <input type="hidden" id="pf-id" name="id" value="">
+                <!-- <button type="button" class="btn btn--secondary" id="btnCancelProfile">รีเซ็ต</button> -->
                 <button type="button" class="btn btn--primary" id="btnSaveProfile">บันทึกข้อมูล</button>
             </div>
         </div>

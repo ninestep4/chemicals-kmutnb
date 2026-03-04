@@ -50,6 +50,12 @@ $base = base_path();
                 <span class="sidebar__icon sidebar__icon--withdrawals" aria-hidden="true"></span>
                 <span>รายการเบิกจ่าย(ยืม-คืนสาร)</span>
             </a>
+
+            <div class="sidebar__section-label setting" style="display: none;">การจัดการ</div>
+            <a href="<?php echo htmlspecialchars(url('pages/users/')); ?>" class="sidebar__item setting <?php echo is_active('pages/users') ? 'sidebar__item--active' : ''; ?>" style="display: none;">
+                <span class="sidebar__icon sidebar__icon--users" aria-hidden="true"></span>
+                <span>จัดการผู้ใช้งาน</span>
+            </a>
             <!-- <a href="<?php echo htmlspecialchars(url('pages/sds/')); ?>" class="sidebar__item <?php echo is_active('pages/sds') ? 'sidebar__item--active' : ''; ?>">
                 <span class="sidebar__icon sidebar__icon--sds" aria-hidden="true"></span>
                 <span>SDS เอกสารความปลอดภัย</span>

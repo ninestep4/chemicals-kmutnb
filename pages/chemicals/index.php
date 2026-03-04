@@ -36,23 +36,9 @@ require_once __DIR__ . '/../../layouts/header.php';
                     </thead>
                     <tbody id="listdata">
                         
-                          
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <span class="chem-status chem-status--">
-                                   
-                                    </span>
-                                </td>
-                                <td></td>
-                                <td>
-                                
-                                </td>
-                            </tr>
+                    <tr>
+                        <td colspan="10" class="text-muted text-center">กำลังโหลด...</td>
+                    </tr>
                            
                         
                     </tbody>
@@ -102,11 +88,15 @@ require_once __DIR__ . '/../../layouts/header.php';
                 </div>
             </div>
             <div class="form-row">
+            <div class="form-group">
+                    <label for="chem-expiry_date">วันที่เพิ่มสาร</label>
+                    <input type="date" id="added_date" name="added_date" class="form-input">
+                </div>
                 <div class="form-group">
                     <label for="chem-expiry_date">วันที่หมดอายุ</label>
                     <input type="date" id="expired_at" name="expiry_date" class="form-input">
                 </div>
-                <div class="form-group">
+                <div class="form-group form-group--full">
                     <label for="chem-status">สถานะ</label>
                     <select id="chem-status" name="status" class="form-input">
                         <option value="normal">สารปกติ</option>
@@ -201,10 +191,14 @@ require_once __DIR__ . '/../../layouts/header.php';
             </div>
             <div class="form-row">
                 <div class="form-group">
+                    <label for="chem-added_date">วันที่เพิ่มสาร</label>
+                    <input type="date" id="ed-added_date" name="added_date" class="form-input">
+                </div>
+                <div class="form-group">
                     <label for="chem-expiry_date">วันที่หมดอายุ</label>
                     <input type="date" id="ed-expired_at" name="expiry_date" class="form-input">
                 </div>
-                <div class="form-group">
+                <div class="form-group form-group--full">
                     <label for="chem-status">สถานะ</label>
                     <select id="ed-chem-status" name="status" class="form-input">
                         <option value="normal">สารปกติ</option>

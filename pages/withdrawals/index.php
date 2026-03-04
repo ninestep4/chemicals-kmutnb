@@ -36,7 +36,9 @@ require_once __DIR__ . '/../../layouts/header.php';
                     </tr>
                 </thead>
                 <tbody id="listdata">
-
+                <tr>
+                        <td colspan="10" class="text-muted text-center">กำลังโหลด...</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

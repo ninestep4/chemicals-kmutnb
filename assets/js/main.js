@@ -63,6 +63,10 @@
 let api_url = 'https://api.9centuryhost.shop/';
 $(document).ready(function () {
     $("#topbar-name").text(sessionStorage.getItem("user"));
-
+    if(sessionStorage.getItem("role") == "admin") {
+        $(".setting").removeAttr("style").show();
+    } else {
+        $(".setting").removeAttr("style").hide();
+    }
     
 });

@@ -67,6 +67,7 @@ function getdata() {
                     <td>${item.cas_no}</td>
                     <td>${item.location}</td>
                     <td><span class="chem-status ${statusClass}">${statusLabel}</span></td>
+                    <td>${item.added_date}</td>
                     <td>${item.expired_at}</td>
                     <td>${hazardHtml}</td>
                 </tr>`;
@@ -74,7 +75,10 @@ function getdata() {
             $('#listdata').html(html);
         },
         error: function (error) {
-            console.log(error);
+            console.log(error.responseJSON.message);
+            if(error.responseJSON.message == 'Unauthenticated.') {
+                window.location.href = '../../pages/login/index.php';
+            }
         }
     });
 }

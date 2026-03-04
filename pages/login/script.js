@@ -15,6 +15,7 @@ function login() {
             if (response.success == true) {
                 sessionStorage.setItem("user", response.name);
                 sessionStorage.setItem("user_id", response.user_id);
+                sessionStorage.setItem("role", response.role);
                 // ดึง access_token เฉพาะค่าหลัง | 
                 if (response.access_token) {
                     const tokenParts = response.access_token.split('|');

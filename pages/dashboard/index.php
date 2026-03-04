@@ -42,12 +42,15 @@ require_once __DIR__ . '/../../layouts/header.php';
                         <th>CAS No.</th>
                         <th>ที่จัดเก็บ</th>
                         <th>สถานะ</th>
+                        <th>วันที่เพิ่มสาร</th>
                         <th>วันหมดอายุ</th>
                         <th>ความอันตราย</th>    
                     </tr>
                 </thead>
                 <tbody id="listdata">
-                    
+                <tr>
+                        <td colspan="9" class="text-muted text-center">กำลังโหลด...</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
