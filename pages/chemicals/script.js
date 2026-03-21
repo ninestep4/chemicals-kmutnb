@@ -5,7 +5,7 @@ $(document).ready(function () {
         window.location.href = '../../pages/login/index.php';
     }
     getdata()
-
+    
     var modal = document.getElementById('modalAddChemical');
     var btnOpen = document.getElementById('btnAddChemical');
     var btnClose = document.getElementById('modalAddChemicalClose');
@@ -80,6 +80,7 @@ $(document).ready(function () {
             cas_no: $("#chem-cas_no").val(),
             location: $("#chem-location").val(),
             status: $("#chem-status").val(),
+            removal_status: $("#chem-removal_status").val(),
             expired_at: $("#expired_at").val(),
             added_date: $("#added_date").val(),
             hazards: $("#hazardGrid").find('input[type="checkbox"]:checked').map(function() {
@@ -103,6 +104,7 @@ $(document).ready(function () {
                 cas_no: formData.cas_no,
                 location: formData.location,
                 status: formData.status,
+                removal_status: formData.removal_status,
                 expired_at: formData.expired_at,
                 added_date: formData.added_date,
                 hazard: formData.hazards,
@@ -163,6 +165,7 @@ $(document).ready(function () {
         $("#ed-chem-cas_no").val(item.cas_no || '');
         $("#ed-chem-location").val(item.location || '');
         $("#ed-chem-status").val(item.status || 'normal');
+        $("#ed-chem-removal_status").val(item.removal_status || 'normal');
         $("#ed-expired_at").val(item.expired_at || '');
         $("#ed-added_date").val(item.added_date || '');
         $("#ed-chem-sds_url").val(item.sds_url || '');
@@ -196,6 +199,7 @@ $(document).ready(function () {
             cas_no: $("#ed-chem-cas_no").val(),
             location: $("#ed-chem-location").val(),
             status: $("#ed-chem-status").val(),
+            removal_status: $("#ed-chem-removal_status").val(),
             expired_at: $("#ed-expired_at").val(),
             added_date: $("#ed-added_date").val(),
             hazard: $("#hazardGridEdit").find('input[type="checkbox"]:checked').map(function() {
@@ -234,6 +238,9 @@ $(document).ready(function () {
 });
 
 function getdata(){
+    if ( $.fn.DataTable.isDataTable('#datatable') ) {
+        $('#datatable').DataTable().destroy();
+    }
     $.ajax({
         url: api_url + 'api/chemicals',
         type: 'GET',
@@ -241,80 +248,132 @@ function getdata(){
             'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
         },
         success: function(response) {
-            
-                var data = response;
-                chemicalsCache = Array.isArray(data) ? data : [];
-                var $list = $("#listdata");
-                $list.empty();
+            var data = response;
+            chemicalsCache = Array.isArray(data) ? data : [];
+            var $list = $("#listdata");
+            $list.empty();
 
-                if (Array.isArray(data) && data.length > 0) {
-                    data.forEach(function (item, idx) {
-                        // Convert hazard string to readable labels
-                        let hazardArr = [];
-                        try {
-                            hazardArr = JSON.parse(item.hazard || "[]");
-                        } catch (e) {
-                            hazardArr = [];
-                        }
-                        // Map hazard keys to label (same as index.php)
-                        const hazardLabels = {
-                            'flammable': 'สารไวไฟ',
-                            'oxidizer': 'สารออกซิไดซ์',
-                            'corrosive': 'สารกัดกร่อน',
-                            'explosive': 'วัตถุระเบิด',
-                            'toxic': 'พิษเฉียบพลัน',
-                            'environment': 'อันตรายต่อสิ่งแวดล้อม',
-                            'health': 'อันตรายต่อสุขภาพ',
-                            'reactive': 'ระเบิด / เกิดปฏิกิริยา'
-                        };
-                        let hazardHtml = hazardArr.map(h => `<span class="hazard-chip hazard-chip--table">${hazardLabels[h] || h}</span>`).join(' ');
+            if (Array.isArray(data) && data.length > 0) {
+                
+                data.forEach(function (item, idx) {
+                    // Convert hazard string to readable labels
+                    let hazardArr = [];
+                    try {
+                        hazardArr = JSON.parse(item.hazard || "[]");
+                    } catch (e) {
+                        hazardArr = [];
+                    }
+                    // Map hazard keys to label (same as index.php)
+                    const hazardLabels = {
+                        'flammable': 'สารไวไฟ',
+                        'oxidizer': 'สารออกซิไดซ์',
+                        'corrosive': 'สารกัดกร่อน',
+                        'explosive': 'วัตถุระเบิด',
+                        'toxic': 'พิษเฉียบพลัน',
+                        'environment': 'อันตรายต่อสิ่งแวดล้อม',
+                        'health': 'อันตรายต่อสุขภาพ',
+                        'reactive': 'ระเบิด / เกิดปฏิกิริยา'
+                    };
+                    let hazardHtml = hazardArr.map(h => `<span class="hazard-chip hazard-chip--table">${hazardLabels[h] || h}</span>`).join(' ');
 
-                        // status class
-                        let statusClass = '';
-                        switch (item.status) {
-                            case 'normal': statusClass = 'chem-status--normal'; break;
-                            case 'unused': statusClass = 'chem-status--unused'; break;
-                            case 'expired_label': statusClass = 'chem-status--expired_label'; break;
-                            case 'expired_condition': statusClass = 'chem-status--expired_condition'; break;
-                            default: statusClass = '';
-                        }
+                    // status class
+                    let statusClass = '';
+                    switch (item.status) {
+                        case 'normal': statusClass = 'chem-status--normal'; break;
+                        case 'unused': statusClass = 'chem-status--unused'; break;
+                        case 'expired_label': statusClass = 'chem-status--expired_label'; break;
+                        case 'expired_condition': statusClass = 'chem-status--expired_condition'; break;
+                        default: statusClass = '';
+                    }
 
-                        // Expiry date format
-                        let expiredAt = item.expired_at ? item.expired_at : '';
 
-                        $list.append(`
-                            <tr>
-                                <td>${idx + 1}</td>
-                                <td>${item.name}</td>
-                                <td>${item.amount + ' / ' + item.original_amount + ' ' + item.unit}</td>
-                                <td>${item.cas_no}</td>
-                                <td>${item.location}</td>
-                                <td>
-                                    <span class="chem-status ${statusClass}">
-                                        ${(() => {
-                                            switch (item.status) {
-                                                case 'normal': return 'ปกติ';
-                                                case 'unused': return 'ไม่เหลือการใช้';
-                                                case 'expired_label': return 'หมดอายุตามฉลาก';
-                                                case 'expired_condition': return 'หมดอายุตามสภาพ';
-                                                default: return '';
-                                            }
-                                        })()}
-                                    </span>
-                                </td>
-                                <td>${item.added_date}</td>
-                                <td>${expiredAt}</td>
-                                <td>${hazardHtml}</td>
-                                <td><i class="fa fa-info-circle" aria-hidden="true"></i> <a href="${item.sds_url}" target="_blank">SDS</a></td>
-                                <td>
-                                    <button class="btn btn--primary" onclick="editChemical(${item.id})">แก้ไข</button>
-                                    <button class="btn btn--danger" onclick="deleteChemical(${item.id})">ลบ</button>
-                                </td>
-                            </tr>
-                        `);
-                    });
-              
+                    let statusremoveClass = '';
+                    switch (item.removal_status) {
+                        case 'normal': statusremoveClass = 'chem-status--remove-normal'; break;
+                        case 'waiting_for_removal': statusremoveClass = 'chem-status--waiting_for_removal'; break;
+                        case 'removed_in_room': statusremoveClass = 'chem-status--removed_in_room'; break;
+                        case 'removed_by_agency': statusremoveClass = 'chem-status--removed_by_agency'; break;
+                        default: statusremoveClass = '';
+                    }
+
+                    let notitable = '';
+                    if (item.notification == 'soon') {
+                        notitable = '#ffe10438';
+                    } else if(item.notification == 'exp') {
+                        notitable = '#ff000038';
+                    } else {
+                        notitable = '';
+                    }
+
+                    // Expiry date format
+                    let expiredAt = item.expired_at ? item.expired_at : '';
+
+                    $list.append(`
+                        <tr style="background-color: ${notitable};">
+                            <td>${idx + 1}</td>
+                            <td>${item.name}</td>
+                            <td>${item.amount + ' / ' + item.original_amount + ' ' + item.unit}</td>
+                            <td>${item.cas_no}</td>
+                            <td>${item.location}</td>
+                            <td>
+                                <span class="chem-status ${statusClass}">
+                                    ${(() => {
+                                        switch (item.status) {
+                                            case 'normal': return 'ปกติ';
+                                            case 'unused': return 'ไม่เหลือการใช้';
+                                            case 'expired_label': return 'หมดอายุตามฉลาก';
+                                            case 'expired_condition': return 'หมดอายุตามสภาพ';
+                                            default: return '';
+                                        }
+                                    })()}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="chem-status ${statusremoveClass}">
+                                    ${(() => {
+                                        switch (item.removal_status) {
+                                            case 'normal': return 'ปกติ'; break;
+                                            case 'waiting_for_removal': return 'กำลังกำจัด'; break;
+                                            case 'removed_in_room': return 'กำจัดในห้อง'; break;
+                                            case 'removed_by_agency': return 'กำจัดโดยรัฐวิสาหกิจ'; break;
+                                            default: return '';
+                                        }
+                                    })()}
+                                </span>
+                            </td>
+                            <td>${item.added_date}</td>
+                            <td>${expiredAt}</td>
+                            <td>${hazardHtml}</td>
+                            <td><i class="fa fa-info-circle" aria-hidden="true"></i> <a href="${item.sds_url}" target="_blank">SDS</a></td>
+                            <td>
+                                <button class="btn btn--primary" onclick="editChemical(${item.id})">แก้ไข</button>
+                                <button class="btn btn--danger" onclick="deleteChemical(${item.id})">ลบ</button>
+                            </td>
+                        </tr>
+                        
+                    `);
+                });
+
+            } else {
+                $list.append(`
+                    <tr>
+                        <td colspan="11" class="text-muted text-center">ไม่พบข้อมูล</td>
+                    </tr>
+                `);
             }
+
+        
+            
+            $('#datatable').DataTable();
+        },
+        error: function(xhr, status, error) {   
+            var $list = $("#listdata");
+            $list.empty();
+            $list.append(`
+                <tr>
+                    <td colspan="11" class="text-muted text-center">เกิดข้อผิดพลาดในการโหลดข้อมูล</td>
+                </tr>
+            `);
         }
     });
 }

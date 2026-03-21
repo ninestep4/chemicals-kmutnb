@@ -8,6 +8,9 @@ require_once __DIR__ . '/../../layouts/header.php';
 
 
 ?>
+<head>
+
+</head>
 
 <section class="chemicals-page">
     <div class="panel">
@@ -19,7 +22,7 @@ require_once __DIR__ . '/../../layouts/header.php';
         </div>
         
             <div class="table-wrap">
-                <table class="chem-table">
+                <table class="chem-table" id="datatable">
                     <thead>
                         <tr>
                             <th>ลำดับ</th>
@@ -27,7 +30,8 @@ require_once __DIR__ . '/../../layouts/header.php';
                             <th>ปริมาณคงเหลือ</th>
                             <th>CAS No.</th>
                             <th>ที่จัดเก็บ</th>
-                            <th>สถานะ</th>
+                            <th>สถานะสาร</th>
+                            <th>สถานะการกำจัด</th>
                             <th>วันที่เพิ่มสาร</th>
                             <th>วันหมดอายุ</th>
                             <th>ความอันตราย</th>
@@ -98,12 +102,21 @@ require_once __DIR__ . '/../../layouts/header.php';
                     <input type="date" id="expired_at" name="expiry_date" class="form-input">
                 </div>
                 <div class="form-group form-group--full">
-                    <label for="chem-status">สถานะ</label>
+                    <label for="chem-status">สถานะสาร</label>
                     <select id="chem-status" name="status" class="form-input">
                         <option value="normal">สารปกติ</option>
                         <option value="unused">ไม่เหลือการใช้</option>
                         <option value="expired_label">หมดอายุตามฉลาก</option>
                         <option value="expired_condition">หมดอายุตามสภาพ</option>
+                    </select>
+                </div>
+                <div class="form-group form-group--full">
+                    <label for="chem-status">สถานะการกำจัด</label>
+                    <select id="chem-removal_status" name="removal_status" class="form-input">
+                        <option value="normal">ปกติ</option>
+                        <option value="waiting_for_removal">กำลังกำจัด</option>
+                        <option value="removed_in_room">กำจัดในห้อง</option>
+                        <option value="removed_by_agency">กำจัดโดยรัฐวิสาหกิจ</option>
                     </select>
                 </div>
             </div>
@@ -200,12 +213,21 @@ require_once __DIR__ . '/../../layouts/header.php';
                     <input type="date" id="ed-expired_at" name="expiry_date" class="form-input">
                 </div>
                 <div class="form-group form-group--full">
-                    <label for="chem-status">สถานะ</label>
+                    <label for="chem-status">สถานะสาร</label>
                     <select id="ed-chem-status" name="status" class="form-input">
                         <option value="normal">สารปกติ</option>
                         <option value="unused">ไม่เหลือการใช้</option>
                         <option value="expired_label">หมดอายุตามฉลาก</option>
                         <option value="expired_condition">หมดอายุตามสภาพ</option>
+                    </select>
+                </div>
+                <div class="form-group form-group--full">
+                    <label for="chem-removal_status">สถานะการกำจัด</label>
+                    <select id="ed-chem-removal_status" name="removal_status" class="form-input">
+                        <option value="normal">ปกติ</option>
+                        <option value="waiting_for_removal">กำลังกำจัด</option>
+                        <option value="removed_in_room">กำจัดในห้อง</option>
+                        <option value="removed_by_agency">กำจัดโดยรัฐวิสาหกิจ</option>
                     </select>
                 </div>
             </div>

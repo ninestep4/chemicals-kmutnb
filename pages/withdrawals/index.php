@@ -31,7 +31,7 @@ require_once __DIR__ . '/../../layouts/header.php';
                         <th>วันที่ยืม</th>
                         <th>วันที่คืน</th>
                         <th>วัตถุประสงค์</th>
-                        <th>สถานะ</th>
+                        <th>สถานะสาร</th>
                         <th>จัดการ</th>
                     </tr>
                 </thead>

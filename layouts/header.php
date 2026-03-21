@@ -9,16 +9,21 @@ $base = base_path();
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo htmlspecialchars($pageTitle); ?> - ระบบจัดการสารเคมี</title>
+    
     <link rel="stylesheet" href="<?php echo htmlspecialchars(asset('assets/css/main.css')); ?>">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
+<script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax/0.0.1/jquery.ajax.min.js"></script> -->
-    <script src="script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"></script>
+    <script src="script.js"></script>
+    
 </head>
 <body>
 <div class="app">

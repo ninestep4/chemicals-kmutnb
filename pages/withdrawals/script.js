@@ -155,6 +155,7 @@ function getWithdrawals() {
             } else {
                 $('#listdata').html(html);
             }
+            $('#withdrawals-table').DataTable();
         },
         error: function (xhr, status, error) {
             console.error('Error:', xhr.responseText);

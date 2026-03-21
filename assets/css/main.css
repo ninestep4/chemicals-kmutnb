@@ -568,6 +568,29 @@ body {
 .chem-status--expired_condition { background: #fee2e2; color: #991b1b; }
 .chem-status--pending { background: #fde68a; color: #854d0e; }
 
+.chem-status--remove-normal {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.chem-status--waiting_for_removal {
+    background: #fdef52;
+    color: #b7791f;
+}
+
+.chem-status--removed_in_room {
+    background: #fca61b;
+    color: #080808;
+}
+
+.chem-status--removed_by_agency {
+    background: #e9effe;
+    color: #312e81;
+
+}
+
+
+
 /* Modal */
 .modal {
     position: fixed;
