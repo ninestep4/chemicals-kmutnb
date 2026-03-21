@@ -80,7 +80,7 @@ $(document).ready(function () {
             cas_no: $("#chem-cas_no").val(),
             location: $("#chem-location").val(),
             status: $("#chem-status").val(),
-            expiry_at: $("#expired_at").val(),
+            expired_at: $("#expired_at").val(),
             added_date: $("#added_date").val(),
             hazards: $("#hazardGrid").find('input[type="checkbox"]:checked').map(function() {
                 return $(this).val();
