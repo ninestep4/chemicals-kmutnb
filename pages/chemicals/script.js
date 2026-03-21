@@ -103,7 +103,7 @@ $(document).ready(function () {
                 cas_no: formData.cas_no,
                 location: formData.location,
                 status: formData.status,
-                expired_at: formData.expiry_at,
+                expired_at: formData.expired_at,
                 added_date: formData.added_date,
                 hazard: formData.hazards,
                 sds_url: formData.sds_url,
@@ -196,7 +196,7 @@ $(document).ready(function () {
             cas_no: $("#ed-chem-cas_no").val(),
             location: $("#ed-chem-location").val(),
             status: $("#ed-chem-status").val(),
-            expiry_at: $("#ed-expired_at").val(),
+            expired_at: $("#ed-expired_at").val(),
             added_date: $("#ed-added_date").val(),
             hazard: $("#hazardGridEdit").find('input[type="checkbox"]:checked').map(function() {
                 return $(this).val();
