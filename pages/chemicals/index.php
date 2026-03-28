@@ -31,6 +31,7 @@ require_once __DIR__ . '/../../layouts/header.php';
                             <th>CAS No.</th>
                             <th>ที่จัดเก็บ</th>
                             <th>สถานะสาร</th>
+                            <th>วิธีการกำจัด</th>
                             <th>สถานะการกำจัด</th>
                             <th>วันที่เพิ่มสาร</th>
                             <th>วันหมดอายุ</th>

@@ -332,6 +332,7 @@ function getdata(){
                                     })()}
                                 </span>
                             </td>
+                            <td>${item.how_remove == null ? '-' : item.how_remove}</td>
                             <td>
                                 <span class="chem-status ${statusremoveClass}">
                                     ${(() => {
@@ -361,10 +362,10 @@ function getdata(){
             } else {
                 $list.append(`
                     <tr>
-                        <td colspan="11" class="text-muted text-center">ไม่พบข้อมูล</td>
+                        <td colspan="12" class="text-muted text-center">ไม่พบข้อมูล</td>
                     </tr>
                 `);
-            }
+                }
 
         
             
