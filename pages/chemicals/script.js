@@ -81,6 +81,7 @@ $(document).ready(function () {
             location: $("#chem-location").val(),
             status: $("#chem-status").val(),
             removal_status: $("#chem-removal_status").val(),
+            how_remove: $("#how-remove").val(),
             expired_at: $("#expired_at").val(),
             added_date: $("#added_date").val(),
             hazards: $("#hazardGrid").find('input[type="checkbox"]:checked').map(function() {
@@ -105,6 +106,7 @@ $(document).ready(function () {
                 location: formData.location,
                 status: formData.status,
                 removal_status: formData.removal_status,
+                how_remove: formData.how_remove,
                 expired_at: formData.expired_at,
                 added_date: formData.added_date,
                 hazard: formData.hazards,
@@ -166,6 +168,7 @@ $(document).ready(function () {
         $("#ed-chem-location").val(item.location || '');
         $("#ed-chem-status").val(item.status || 'normal');
         $("#ed-chem-removal_status").val(item.removal_status || 'normal');
+        $("#ed-how-remove").val(item.how_remove || '');
         $("#ed-expired_at").val(item.expired_at || '');
         $("#ed-added_date").val(item.added_date || '');
         $("#ed-chem-sds_url").val(item.sds_url || '');
@@ -200,6 +203,7 @@ $(document).ready(function () {
             location: $("#ed-chem-location").val(),
             status: $("#ed-chem-status").val(),
             removal_status: $("#ed-chem-removal_status").val(),
+            how_remove: $("#ed-how-remove").val(),
             expired_at: $("#ed-expired_at").val(),
             added_date: $("#ed-added_date").val(),
             hazard: $("#hazardGridEdit").find('input[type="checkbox"]:checked').map(function() {

@@ -111,6 +111,10 @@ require_once __DIR__ . '/../../layouts/header.php';
                     </select>
                 </div>
                 <div class="form-group form-group--full">
+                    <label for="how-remove">วิธีการกำจัด</label>
+                    <input type="text" id="how-remove" name="how_remove" class="form-input" placeholder="วิธีการกำจัดสาร">
+                </div>
+                <div class="form-group form-group--full">
                     <label for="chem-status">สถานะการกำจัด</label>
                     <select id="chem-removal_status" name="removal_status" class="form-input">
                         <option value="normal">ปกติ</option>
@@ -220,6 +224,10 @@ require_once __DIR__ . '/../../layouts/header.php';
                         <option value="expired_label">หมดอายุตามฉลาก</option>
                         <option value="expired_condition">หมดอายุตามสภาพ</option>
                     </select>
+                </div>
+                <div class="form-group form-group--full">
+                    <label for="how-remove">วิธีการกำจัด</label>
+                    <input type="text" id="ed-how-remove" name="how_remove" class="form-input" placeholder="วิธีการกำจัดสาร">
                 </div>
                 <div class="form-group form-group--full">
                     <label for="chem-removal_status">สถานะการกำจัด</label>
